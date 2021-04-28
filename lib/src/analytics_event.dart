@@ -1,9 +1,9 @@
 class AnalyticsEvent {
-  String eventType;
-  Map<String, dynamic> properties;
+  String name = '';
+  Map<String, dynamic>? properties;
 
-  AnalyticsEvent(String eventType, Map<String, dynamic> properties) {
-    this.eventType = eventType;
+  AnalyticsEvent({required String name, Map<String, dynamic>? properties}) {
+    this.name = name;
     this.properties = properties;
   }
 }
