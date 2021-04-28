@@ -7,17 +7,15 @@ import 'package:flutter_app_analytics/src/analytics_provider.dart';
 
 class AmplitudeProvider implements AnalyticsProvider {
   String _apiKey;
-  AmplitudeIdentification _amplitudeIdentification;
+  Dio dio = Dio(); // public for testing :(
+  AmplitudeIdentification? _amplitudeIdentification;
 
-  AmplitudeProvider(String apiKey) {
-    _apiKey = apiKey;
-  }
+  AmplitudeProvider(this._apiKey);
 
   Future<void> identify(AnalyticsIdentification properties) async {
     this._amplitudeIdentification = AmplitudeIdentification(properties);
-    var requestData = this._amplitudeIdentification.toJson();
+    var requestData = this._amplitudeIdentification!.toJson();
 
-    var dio = Dio();
     try {
       await dio.post(
         'https://api.amplitude.com/identify',
@@ -37,14 +35,13 @@ class AmplitudeProvider implements AnalyticsProvider {
       print(e.requestOptions.data);
       print(e.message);
       if (e.response != null) {
-        print(e.response.data);
-        print(e.response.headers);
+        print(e.response!.data);
+        print(e.response!.headers);
       }
     }
   }
 
   Future<void> trackEvent(AnalyticsEvent event) async {
-    var dio = Dio();
     try {
       // get the user's IP address first
       var response = await dio.get('https://api.ipify.org?format=json');
@@ -52,8 +49,8 @@ class AmplitudeProvider implements AnalyticsProvider {
         'api_key': this._apiKey,
         'events': [
           {
-            'user_id': this._amplitudeIdentification.properties.userId,
-            'event_type': event.eventType,
+            'user_id': this._amplitudeIdentification?.properties.userId,
+            'event_type': event.name,
             'event_properties': event.properties,
             'time': DateTime.now().millisecondsSinceEpoch,
             'ip': response.data['ip'],
@@ -65,8 +62,8 @@ class AmplitudeProvider implements AnalyticsProvider {
       print(e.message);
 
       if (e.response != null) {
-        print(e.response.data);
-        print(e.response.headers);
+        print(e.response!.data);
+        print(e.response!.headers);
       }
     }
   }
@@ -74,9 +71,8 @@ class AmplitudeProvider implements AnalyticsProvider {
 
 class AmplitudeIdentification {
   AnalyticsIdentification properties;
-  AmplitudeIdentification(AnalyticsIdentification properties) {
-    this.properties = properties;
-  }
+
+  AmplitudeIdentification(this.properties);
 
   Map toJson() => {
         'user_id': this.properties.userId,

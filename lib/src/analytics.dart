@@ -8,11 +8,7 @@ import 'package:flutter_app_analytics/src/analytics_identification.dart';
 import 'package:flutter_app_analytics/src/analytics_provider.dart';
 
 class Analytics {
-  List<AnalyticsProvider> _providers;
-
-  void setProviders(List<AnalyticsProvider> providers) {
-    this._providers = providers;
-  }
+  List<AnalyticsProvider> providers = [];
 
   Future<void> identify(AnalyticsIdentification properties) async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -27,28 +23,28 @@ class Analytics {
       if (Platform.isAndroid) {
         AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         properties.platform = 'android';
-        properties.deviceBrand = androidInfo.brand;
-        properties.deviceManufacturer = androidInfo.manufacturer;
-        properties.deviceModel = androidInfo.model;
-        properties.osName = androidInfo.version.baseOS;
+        properties.deviceBrand = androidInfo.brand ?? '';
+        properties.deviceManufacturer = androidInfo.manufacturer ?? '';
+        properties.deviceModel = androidInfo.model ?? '';
+        properties.osName = androidInfo.version.baseOS ?? '';
         properties.osVersion =
             "${androidInfo.version.codename} - ${androidInfo.version.release}";
       } else if (Platform.isIOS) {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         properties.platform = 'iOS';
         properties.deviceManufacturer = 'Apple';
-        properties.deviceModel = iosInfo.model;
-        properties.osName = iosInfo.systemName;
-        properties.osVersion = iosInfo.systemVersion;
+        properties.deviceModel = iosInfo.model ?? '';
+        properties.osName = iosInfo.systemName ?? '';
+        properties.osVersion = iosInfo.systemVersion ?? '';
       }
     }
-    _providers.forEach((provider) async {
+    providers.forEach((provider) async {
       await provider.identify(properties);
     });
   }
 
   Future<void> trackEvent(AnalyticsEvent event) async {
-    _providers.forEach((provider) async {
+    providers.forEach((provider) async {
       await provider.trackEvent(event);
     });
   }
