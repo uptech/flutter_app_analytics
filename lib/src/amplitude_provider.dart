@@ -50,6 +50,7 @@ class AmplitudeProvider implements AnalyticsProvider {
         'events': [
           {
             'user_id': this._amplitudeIdentification?.properties.userId,
+            'device_id': this._amplitudeIdentification?.properties.deviceId,
             'event_type': event.name,
             'event_properties': event.properties,
             'time': DateTime.now().millisecondsSinceEpoch,

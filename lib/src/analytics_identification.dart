@@ -1,5 +1,6 @@
 class AnalyticsIdentification {
   String? userId;
+  String? deviceId;
   String? osName;
   String? osVersion;
   String? platform;

@@ -4,6 +4,14 @@ A flutter package to help abstract away vendor specific implementations of in ap
 
 NOTE: Currently this only supports Amplitude.
 
+## Testing
+
+### Run Tests
+
+```
+flutter test
+```
+
 ## Generating your mocks
 
 We use build_runner to generate mocks from mockito:
