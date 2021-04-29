@@ -77,6 +77,7 @@ class AmplitudeIdentification {
 
   Map toJson() => {
         'user_id': this.properties.userId,
+        'device_id': this.properties.deviceId,
         'os_name': this.properties.osName,
         'os_version': this.properties.osVersion,
         'app_version': this.properties.appVersion,
