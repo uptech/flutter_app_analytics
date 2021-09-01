@@ -17,7 +17,6 @@ class AnalyticsIdentification {
 
   static Future<AnalyticsIdentification> identifyDevice() async {
     AnalyticsIdentification properties = AnalyticsIdentification();
-    properties.platform = Platform.operatingSystem;
 
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (kIsWeb) {
@@ -26,8 +25,11 @@ class AnalyticsIdentification {
       properties.osVersion = Platform.operatingSystemVersion;
       properties.deviceManufacturer = info.vendor;
       properties.deviceId = 'unknown_web_device_id';
+      properties.platform = 'web';
     } else {
       try {
+        properties.platform = Platform.operatingSystem;
+
         if (Platform.isMacOS) {
           MacOsDeviceInfo info = await deviceInfo.macOsInfo;
           properties.osName = info.hostName;
