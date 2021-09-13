@@ -1,7 +1,6 @@
 name: flutter_app_analytics
-description: A new Flutter package project.
+description: A flutter package to help abstract away vendor specific implementations of in app analytics.
 version: 0.0.1
-author:
 homepage:
 
 environment:
