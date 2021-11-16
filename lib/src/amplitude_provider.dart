@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_app_analytics/src/analytics_event.dart';
 import 'package:flutter_app_analytics/src/analytics_identification.dart';
 import 'package:flutter_app_analytics/src/analytics_provider.dart';
@@ -30,13 +31,13 @@ class AmplitudeProvider implements AnalyticsProvider {
         ),
       );
     } on DioError catch (e) {
-      print("Error in Amplify Identify call");
+      debugPrint("Error in Amplify Identify call");
 
-      print(e.requestOptions.data);
-      print(e.message);
+      debugPrint(e.requestOptions.data);
+      debugPrint(e.message);
       if (e.response != null) {
-        print(e.response!.data);
-        print(e.response!.headers);
+        debugPrint(e.response!.data);
+        debugPrint(e.response!.headers.toString());
       }
     }
   }
@@ -59,12 +60,12 @@ class AmplitudeProvider implements AnalyticsProvider {
         ]
       });
     } on DioError catch (e) {
-      print("Error in Amplify TrackEvent call");
-      print(e.message);
+      debugPrint("Error in Amplify TrackEvent call");
+      debugPrint(e.message);
 
       if (e.response != null) {
-        print(e.response!.data);
-        print(e.response!.headers);
+        debugPrint(e.response!.data);
+        debugPrint(e.response!.headers.toString());
       }
     }
   }
@@ -85,6 +86,6 @@ class AmplitudeIdentification {
         'device_manufacturer': this.properties.deviceManufacturer,
         'device_brand': this.properties.deviceBrand,
         'platform': this.properties.platform,
-        'user_attributes': this.properties.userProperties,
+        'user_properties': this.properties.userProperties,
       };
 }
