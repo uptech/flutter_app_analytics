@@ -10,13 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^4.0.0
-  http: ^0.13.1
-  device_info_plus: ^3.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.0.17
   build_runner: ^2.1.7
 
 # For information on the generic Dart part of this file, see the

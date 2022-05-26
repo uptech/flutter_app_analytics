@@ -1,9 +1,6 @@
 class AnalyticsEvent {
-  String name = '';
-  Map<String, dynamic>? properties;
+  final String name;
+  final Map<String, dynamic>? properties;
 
-  AnalyticsEvent({required String name, Map<String, dynamic>? properties}) {
-    this.name = name;
-    this.properties = properties;
-  }
+  AnalyticsEvent({required this.name, this.properties});
 }
