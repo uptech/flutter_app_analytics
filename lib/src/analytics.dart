@@ -10,14 +10,19 @@ class Analytics {
     String? userId,
     Map<String, dynamic>? properties,
   }) async {
-    await Future.forEach<AnalyticsProvider>(providers, (provider) async {
-      await provider.identify(userId: userId, properties: properties);
-    });
+    await Future.forEach<AnalyticsProvider>(
+        providers,
+        (provider) =>
+            provider.identify(userId: userId, properties: properties));
   }
 
   Future<void> trackEvent(AnalyticsEvent event) async {
-    await Future.forEach<AnalyticsProvider>(providers, (provider) async {
-      await provider.trackEvent(event);
-    });
+    await Future.forEach<AnalyticsProvider>(
+        providers, (provider) => provider.trackEvent(event));
+  }
+
+  Future<void> trackEvents(List<AnalyticsEvent> events) async {
+    await Future.forEach<AnalyticsProvider>(
+        providers, (provider) => provider.trackEvents(events));
   }
 }
