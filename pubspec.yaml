@@ -1,7 +1,7 @@
 name: flutter_app_analytics
 description: A flutter package to help abstract away vendor specific implementations of in app analytics.
 homepage: https://github.com/uptech/flutter_app_analytics
-version: 0.0.1
+version: 1.0.0
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
